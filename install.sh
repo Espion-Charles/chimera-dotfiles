@@ -22,9 +22,9 @@ doas ln -sf /usr/bin/glslangValidator /usr/local/bin/glslang
 
 # 3. Build tomlplusplus from source
 git clone https://github.com/marzer/tomlplusplus.git
-cd tomlplusplus; rm -rf build
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local
-cmake --build build
+cd tomlplusplus && rm -rf build
+cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local || exit
+cmake --build build || exit
 doas cmake --install build
 cd ..
 
@@ -50,41 +50,41 @@ export CXXFLAGS="-include vector -include string -include stdexcept -include cst
 # === PART 2: CORE LIBRARIES ===
 # (Glaze, RE2, muparser)
 git clone https://github.com/stephenberry/glaze
-cd glaze; rm -rf build; cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local; doas cmake --install build; cd ..
+(cd glaze  && rm -rf build  && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local  && doas cmake --install build  && cd ..) || exit
 
 git clone https://github.com/google/re2
-cd re2; rm -rf build; cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local; cmake --build build; doas cmake --install build; cd ..
+(cd re2  && rm -rf build  && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local  && cmake --build build  && doas cmake --install build && cd ..) || exit
 
 git clone https://github.com/beltoforion/muparser
-cd muparser; rm -rf build; cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local; cmake --build build; doas cmake --install build; cd ..
+(cd muparser && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
 
 # === PART 3: HYPR ECOSYSTEM ===
 # (Utils -> Lang -> Graphics -> Cursor -> Aquamarine)
 git clone https://github.com/hyprwm/hyprutils
-cd hyprutils; rm -rf build; cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local; cmake --build build; doas cmake --install build; cd ..
+(cd hyprutils && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd .. ) || exit
 
 git clone https://github.com/hyprwm/hyprlang
-cd hyprlang; rm -rf build; cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local; cmake --build build; doas cmake --install build; cd ..
+(cd hyprlang && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd .. ) || exit
 
 git clone https://github.com/hyprwm/hyprgraphics
-cd hyprgraphics; rm -rf build; cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local; cmake --build build; doas cmake --install build; cd ..
+(cd hyprgraphics && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
 
 git clone https://github.com/hyprwm/hyprcursor
-cd hyprcursor; rm -rf build; cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local; cmake --build build; doas cmake --install build; cd ..
+(cd hyprcursor && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
 
 git clone https://github.com/hyprwm/aquamarine
-cd aquamarine; rm -rf build
+cd aquamarine && rm -rf build
 cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY
-cmake --build build; doas cmake --install build; cd ..
+(cmake --build build && doas cmake --install build && cd ..) || exit
 
 # === PART 4: FINAL BINARIES ===
 git clone https://github.com/hyprwm/hyprwire
-cd hyprwire; rm -rf build; cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/usr/local; cmake --build build; doas cmake --install build; cd ..
+(cd hyprwire && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
 
 git clone --recursive https://github.com/hyprwm/Hyprland
-cd Hyprland; git pull; git submodule update --init --recursive; rm -rf build
+cd Hyprland && git pull && git submodule update --init --recursive && rm -rf build
 cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_PREFIX_PATH=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY -Dglslang_DIR=/usr/lib/cmake/glslang
-cmake --build build; doas cmake --install build; cd ..
+cmake --build build && doas cmake --install build && cd ..
 
 doas ldconfig /usr/local/lib
 echo "Hyprland is now fully installed from source."
