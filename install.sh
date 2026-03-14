@@ -78,17 +78,14 @@ git clone https://github.com/hyprwm/hyprcursor
 
 git clone https://github.com/hyprwm/aquamarine
 cd aquamarine && rm -rf build
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY
-(cmake --build build && doas cmake --install build && cd ..) || exit
+(cd aquamarine && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY -DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so -DOPENGL_gl_LIBRARY=/usr/lib/libGL.so -DOPENGL_egl_LIBRARY=/usr/lib/libEGL.so && cmake --build build && doas cmake --install build && cd ..) || exit
 
 # === PART 4: FINAL BINARIES ===
 git clone https://github.com/hyprwm/hyprwire
 (cd hyprwire && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
 
 git clone --recursive https://github.com/hyprwm/Hyprland
-cd Hyprland && git pull && git submodule update --init --recursive && rm -rf build
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_PREFIX_PATH=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY -Dglslang_DIR=/usr/lib/cmake/glslang
-cmake --build build && doas cmake --install build && cd ..
+(cd Hyprland && git pull && git submodule update --init --recursive && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_PREFIX_PATH=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY -Dglslang_DIR=/usr/lib/cmake/glslang -DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so -DOPENGL_egl_LIBRARY=/usr/lib/libEGL.so && cmake --build build && doas cmake --install build && cd ..) || exit
 
 doas ldconfig /usr/local/lib
 echo "Hyprland is now fully installed from source."
