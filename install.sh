@@ -88,7 +88,7 @@ git clone --recursive https://github.com/hyprwm/Hyprland
 
 doas ldconfig /usr/local/lib
 
-
+# guiutils and hyprtoolkit
 git clone https://github.com/hyprwm/hyprtoolkit
 (cd hyprtoolkit && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
 
