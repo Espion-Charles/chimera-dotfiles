@@ -13,7 +13,7 @@ doas apk add base-devel clang lld ninja cmake pkgconf git \
     xcb-util-errors-devel xcb-util-wm-devel xcb-util-image-devel \
     xcb-util-keysyms-devel libdisplay-info-devel libliftoff-devel \
     glslang-devel spirv-tools-devel mesa-devel libcap-devel \
-    pugixml-devel libpng-devel libwebp-devel elogind librsvg
+    pugixml-devel libpng-devel libwebp-devel elogind librsvg libomp-devel libzip
 
 # 2. Fix the glslang "Ghost File" error
 doas touch /usr/bin/glslang
@@ -56,7 +56,7 @@ git clone https://github.com/google/re2
 (cd re2  && rm -rf build  && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local  && cmake --build build  && doas cmake --install build && cd ..) || exit
 
 git clone https://github.com/beltoforion/muparser
-(cd muparser && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
+(cd muparser && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_OPENMP=ON && cmake --build build && doas cmake --install build && cd ..) || exit
 
 # === PART 3: HYPR ECOSYSTEM ===
 # (Utils -> Lang -> Graphics -> Cursor -> Aquamarine)
@@ -65,6 +65,9 @@ git clone https://github.com/hyprwm/hyprutils
 
 git clone https://github.com/hyprwm/hyprlang
 (cd hyprlang && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd .. ) || exit
+
+git clone https://github.com/hyprwm/hyprwayland-scanner
+(cd hyprwayland-scanner && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
 
 git clone https://github.com/hyprwm/hyprgraphics
 (cd hyprgraphics && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
