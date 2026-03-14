@@ -13,7 +13,8 @@ doas apk add base-devel clang lld ninja cmake pkgconf git \
     xcb-util-errors-devel xcb-util-wm-devel xcb-util-image-devel \
     xcb-util-keysyms-devel libdisplay-info-devel libliftoff-devel \
     glslang-devel spirv-tools-devel mesa-devel libcap-devel \
-    pugixml-devel libpng-devel libwebp-devel elogind librsvg libomp-devel libzip
+    pugixml-devel libpng-devel libwebp-devel elogind librsvg libomp-devel libzip \
+    libseat hwdata
 
 # 2. Fix the glslang "Ghost File" error
 doas touch /usr/bin/glslang
