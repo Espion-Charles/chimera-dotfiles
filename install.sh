@@ -14,7 +14,7 @@ doas apk add base-devel clang lld ninja cmake pkgconf git \
     xcb-util-keysyms-devel libdisplay-info-devel libliftoff-devel \
     glslang-devel spirv-tools-devel mesa-devel libcap-devel \
     pugixml-devel libpng-devel libwebp-devel elogind librsvg libomp-devel libzip \
-    libseat hwdata
+    libseat hwdata iniparser
 
 # 2. Fix the glslang "Ghost File" error
 doas touch /usr/bin/glslang
@@ -87,4 +87,12 @@ git clone --recursive https://github.com/hyprwm/Hyprland
 (cd Hyprland && git pull && git submodule update --init --recursive && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_PREFIX_PATH=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY -Dglslang_DIR=/usr/lib/cmake/glslang -DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so -DOPENGL_egl_LIBRARY=/usr/lib/libEGL.so && cmake --build build && doas cmake --install build && cd ..) || exit
 
 doas ldconfig /usr/local/lib
+
+
+git clone https://github.com/hyprwm/hyprtoolkit
+(cd hyprtoolkit && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
+
+git clone https://github.com/hyprwm/hyprland-guiutils
+(cd hyprland-guiutils && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY -DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so -DOPENGL_egl_LIBRARY=/usr/lib/libEGL.so && cmake --build build && doas cmake --install build && cd ..) || exit
+
 echo "Hyprland is now fully installed from source."
