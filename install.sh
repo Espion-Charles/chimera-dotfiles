@@ -1,5 +1,5 @@
 #!/bin/sh
-
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # === PRE-BUILD CLEANUP ===
 # rm -rf glaze re2 muparser hyprutils hyprlang hyprgraphics hyprcursor aquamarine hyprwire Hyprland tomlplusplus
 
