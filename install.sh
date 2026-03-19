@@ -90,7 +90,7 @@ doas ldconfig /usr/local/lib
 
 # guiutils and hyprtoolkit
 git clone https://github.com/hyprwm/hyprtoolkit
-(cd hyprtoolkit && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && cmake --build build && doas cmake --install build && cd ..) || exit
+(cd hyprtoolkit && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY -DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so -DOPENGL_egl_LIBRARY=/usr/lib/libEGL.so && cmake --build build && doas cmake --install build && cd ..) || exit
 
 git clone https://github.com/hyprwm/hyprland-guiutils
 (cd hyprland-guiutils && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY -DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so -DOPENGL_egl_LIBRARY=/usr/lib/libEGL.so && cmake --build build && doas cmake --install build && cd ..) || exit
