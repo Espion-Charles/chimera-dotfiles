@@ -1,5 +1,4 @@
 #!/bin/sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # === PRE-BUILD CLEANUP ===
 # rm -rf glaze re2 muparser hyprutils hyprlang hyprgraphics hyprcursor aquamarine hyprwire Hyprland tomlplusplus
 
@@ -14,7 +13,7 @@ doas apk add base-devel clang lld ninja cmake pkgconf git \
     xcb-util-keysyms-devel libdisplay-info-devel libliftoff-devel \
     glslang-devel spirv-tools-devel mesa-devel libcap-devel \
     pugixml-devel libpng-devel libwebp-devel elogind librsvg libomp-devel libzip \
-    libseat hwdata iniparser
+    libseat hwdata iniparser zsh
 
 # 2. Fix the glslang "Ghost File" error
 doas touch /usr/bin/glslang
@@ -96,3 +95,6 @@ git clone https://github.com/hyprwm/hyprland-guiutils
 (cd hyprland-guiutils && rm -rf build && cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOpenGL_GL_PREFERENCE=LEGACY -DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so -DOPENGL_egl_LIBRARY=/usr/lib/libEGL.so && cmake --build build && doas cmake --install build && cd ..) || exit
 
 echo "Hyprland is now fully installed from source."
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
