@@ -96,5 +96,3 @@ git clone https://github.com/hyprwm/hyprland-guiutils
 
 echo "Hyprland is now fully installed from source."
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
